@@ -12,7 +12,6 @@ import Home from './pages/Home';
 import Jabatan from './pages/Jabatan';
 import Karyawan from './pages/Karyawan';
 import Kontrak from './pages/Kontrak';
-import Coba from './pages/Coba'
 import Edit from './pages/Edit/Edit';
 
 const router = createBrowserRouter([
@@ -31,10 +30,6 @@ const router = createBrowserRouter([
   {
     path: "/kontrak",
     element: <Kontrak />,
-  },
-  {
-    path: "/coba",
-    element: <Coba />,
   },
   {
     path: "/edit",

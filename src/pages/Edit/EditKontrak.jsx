@@ -30,7 +30,7 @@ function EditKontrak() {
       <Navbar />
       <form className="container">
         <h1 className="d-flex justify-content-center align-items-center">
-          Edit Data
+          Edit Data Kontak
         </h1>
         <form className="input-post d-flex flex-column align-content-center justify-content-center w-100 mb-5">
           <div class="mb-3">

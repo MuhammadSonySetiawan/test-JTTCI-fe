@@ -28,9 +28,9 @@ function Karyawan() {
     };
 // console.log(id)
     // Delete
-    const hendleDelete = () => {
+    const hendleDelete = (e) => {
       axios
-        .delete(`http://localhost:8000/karyawan/${id}`)
+        .delete(`http://localhost:8000/karyawan/${e}`)
         .then(res => {
           console.log(res)
         })
@@ -52,7 +52,7 @@ function Karyawan() {
           console.error("Ada kesalahan: ", error);
         });
     };
-    
+
   return (
     <div>
       <Navbar />
@@ -143,8 +143,7 @@ function Karyawan() {
                       type="button"
                       class="btn btn-danger"
                       onClick={() => {
-                        setId(item.id);
-                        hendleDelete();
+                        hendleDelete(item.id);
                       }}
                     >
                       Hapus

@@ -28,9 +28,9 @@ function Kontrak() {
   };
 
   // Delete
-  const hendleDelete = () => {
+  const hendleDelete = (e) => {
     axios
-      .delete(`http://localhost:8000/kontrak/${id}`)
+      .delete(`http://localhost:8000/kontrak/${e}`)
       .then((res) => {
         console.log(res);
         navigate("/");
@@ -90,7 +90,7 @@ function Kontrak() {
 
           <div class="mb-3">
             <label for="exampleInputJabatan" class="form-label">
-              Jabatan
+              Kontrak
             </label>
             <input
               type="text"
@@ -116,7 +116,7 @@ function Kontrak() {
                 <th scope="col">No</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Id Card</th>
-                <th scope="col">Jabatan</th>
+                <th scope="col">Kontrak</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
               </tr>
@@ -145,8 +145,7 @@ function Kontrak() {
                       type="button"
                       class="btn btn-danger"
                       onClick={() => {
-                        setId(item.id);
-                        hendleDelete();
+                        hendleDelete(item.id);
                       }}
                     >
                       Hapus

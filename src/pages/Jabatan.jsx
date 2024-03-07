@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Jabatan() {
   const navigate = useNavigate();
   const [jabatans, setJabatans] = useState([]);
-  const [id, setId] = useState();
+  const [id, setId] = useState(null);
   const [name, setName] = useState(null);
   const [idCard, setIdCard] = useState(null);
   const [jabatan, setJabatan] = useState(null);
@@ -36,12 +36,12 @@ function Jabatan() {
  
 
 // Delete
-  const hendleDelete = () => {
+  const hendleDelete = (e) => {
+    
     axios
-      .delete(`http://localhost:8000/jabatan/${id}`)
+      .delete(`http://localhost:8000/jabatan/${e}`)
       .then((res) => {
-        console.log(res)
-        navigate('/')
+        console.log(res);
       })
       .catch((err) => console.log(err));
   };
@@ -152,8 +152,8 @@ function Jabatan() {
                       type="button"
                       class="btn btn-danger"
                       onClick={() => {
-                        setId(item.id);
-                        hendleDelete();
+                        // setId(item.id);
+                        hendleDelete(item.id);
                       }}
                     >
                       Hapus

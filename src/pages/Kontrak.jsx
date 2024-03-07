@@ -2,26 +2,24 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import "../App.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Kontrak() {
-  const navigate = useNavigate();
-  const [jabatans, setJabatans] = useState([]);
-  const [id, setId] = useState();
+  const [data, setData] = useState([]);
   const [name, setName] = useState(null);
   const [idCard, setIdCard] = useState(null);
   const [kontrak, setKontrak] = useState(null);
-  const [idUpdate, setIdUpdate] = useState();
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Get Data
   const fetchData = () => {
     axios
       .get(`http://localhost:8000/kontrak`)
       .then((res) => {
-        setJabatans(res.data.payload.datas);
+        setData(res.data.payload.datas);
         console.log(res.data.payload.datas);
       })
       .catch((err) => console.log(err));
@@ -33,7 +31,6 @@ function Kontrak() {
       .delete(`http://localhost:8000/kontrak/${e}`)
       .then((res) => {
         console.log(res);
-        navigate("/");
       })
       .catch((err) => console.log(err));
   };
@@ -49,11 +46,10 @@ function Kontrak() {
       .then((response) => {
         console.log(response);
       })
-      .catch((error) => {
-        console.error("Ada kesalahan: ", error);
+      .catch((err) => {
+        console.log(err);
       });
   };
-
 
   return (
     <div>
@@ -62,7 +58,8 @@ function Kontrak() {
         Halaman Kontrak
       </h1>
       <div className="container">
-        {/* input jabatan start */}
+
+        {/* input Kontrak start */}
         <form className="input-post d-flex flex-column align-content-center justify-content-center w-100 mb-5">
           <div class="mb-3">
             <label for="exampleInputName1" class="form-label">
@@ -108,7 +105,8 @@ function Kontrak() {
             Submit
           </button>
         </form>
-        {/* input  jabatan end */}
+        {/* input Kontrak end */}
+
         <form action="">
           <table class="table mt-3">
             <thead>
@@ -122,26 +120,23 @@ function Kontrak() {
               </tr>
             </thead>
             <tbody>
-              {jabatans.map((item, key) => (
+              {data.map((item, key) => (
                 <tr key={key}>
                   <th scope="row">{key + 1}</th>
                   <td>{item.name}</td>
                   <td>{item.idcard}</td>
-                  <td>{item.jabatan}</td>
+                  <td>{item.kontrak}</td>
                   <td>
                     <Link
-                      to={"/edit"}
-                      name={item.name}
-                      id={item.id}
-                      idCard={item.idcard}
-                      jabatan={item.jabatan}
+                      to={`/edit-kontrak/${item.id}`}
                       className="btn btn-primary"
                     >
                       Edit
                     </Link>
                   </td>
                   <td>
-                    <button
+                    <a
+                      href="/kontrak"
                       type="button"
                       class="btn btn-danger"
                       onClick={() => {
@@ -149,7 +144,7 @@ function Kontrak() {
                       }}
                     >
                       Hapus
-                    </button>
+                    </a>
                   </td>
                 </tr>
               ))}

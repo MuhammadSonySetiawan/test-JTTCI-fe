@@ -1,32 +1,38 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router";
+import axios from "axios";
+import Navbar from "../../components/Navbar";
 
-function Edit(params) {
-    console.log(params)
-  const [idUpdate, setIdUpdate] = useState();
+function Edit() {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
   const [nameUpdate, setNameUpdate] = useState(null);
   const [idCardUpdate, setIdCardUpdate] = useState(null);
   const [jabatanUpdate, setJabatanUpdate] = useState(null);
 
   // Edit
-  console.log(idUpdate);
-  const handleUpdate = () => {
-    // axios
-    //   .put(`http://localhost:8000/jabatan/${idUpdate}`, {
-    //     idcard: idCardUpdate,
-    //     name: nameUpdate,
-    //     jabatan: jabatanUpdate,
-    //   })
-    //   .then((response) => {
-    //     console.log("Data berhasil diperbarui:", response);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
+  const handleUpdate = (e) => {
+
+    axios
+      .put(`http://localhost:8000/jabatan/${id}`, {
+        idcard: idCardUpdate,
+        name: nameUpdate,
+        jabatan: jabatanUpdate,
+      })
+      .then((response) => {
+        console.log("Data berhasil diperbarui:", response);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
   };
+
   return (
-    <div className="container">
+  <>
+    <Navbar />
+    <form className="container" >
       <h1 className="d-flex justify-content-center align-items-center">
-        Edit Data
+        Edit Data Jabatan
       </h1>
       <form className="input-post d-flex flex-column align-content-center justify-content-center w-100 mb-5">
         <div class="mb-3">
@@ -65,18 +71,18 @@ function Edit(params) {
           />
         </div>
 
-        <button
+        <a href={'/jabatan'}
           type="submit"
           class="btn btn-primary"
           onClick={() => {
             handleUpdate();
-            // setIdUpdate(item.id);
           }}
         >
-          Submit
-        </button>
+          Simpan
+        </a>
       </form>
-    </div>
+    </form>
+  </>
   );
 }
 

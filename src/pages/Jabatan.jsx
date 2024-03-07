@@ -1,43 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
-import "../App.css"
-import { Link, useNavigate } from "react-router-dom";
+import "../App.css";
+import { Link } from "react-router-dom";
 
 function Jabatan() {
-  const navigate = useNavigate();
-  const [jabatans, setJabatans] = useState([]);
-  const [id, setId] = useState(null);
+  const [data, setData] = useState([]);
   const [name, setName] = useState(null);
   const [idCard, setIdCard] = useState(null);
   const [jabatan, setJabatan] = useState(null);
-  const [idUpdate, setIdUpdate] = useState();
-
-    const [nameUpdate, setNameUpdate] = useState(null);
-    const [idCardUpdate, setIdCardUpdate] = useState(null);
-    const [jabatanUpdate, setJabatanUpdate] = useState(null);
-  
 
   useEffect(() => {
     fetchData();
-    
   }, []);
-
+  // Get Data
   const fetchData = () => {
     axios
       .get(`http://localhost:8000/jabatan`)
       .then((res) => {
-        setJabatans(res.data.payload.datas);
-        console.log(res.data.payload.datas);
+        setData(res.data.payload.datas);
       })
       .catch((err) => console.log(err));
-  } 
-  
- 
+  };
 
-// Delete
+  // Delete
   const hendleDelete = (e) => {
-    
     axios
       .delete(`http://localhost:8000/jabatan/${e}`)
       .then((res) => {
@@ -46,7 +33,7 @@ function Jabatan() {
       .catch((err) => console.log(err));
   };
 
-// Post
+  // Post
   const handleSubmitPost = (e) => {
     axios
       .post(`http://localhost:8000/jabatan`, {
@@ -57,8 +44,8 @@ function Jabatan() {
       .then((response) => {
         console.log(response);
       })
-      .catch((error) => {
-        console.error("Ada kesalahan: ", error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -116,6 +103,7 @@ function Jabatan() {
           </button>
         </form>
         {/* input  jabatan end */}
+        
         <form action="">
           <table class="table mt-3">
             <thead>
@@ -129,7 +117,7 @@ function Jabatan() {
               </tr>
             </thead>
             <tbody>
-              {jabatans.map((item, key) => (
+              {data.map((item, key) => (
                 <tr key={key}>
                   <th scope="row">{key + 1}</th>
                   <td>{item.name}</td>
@@ -137,27 +125,23 @@ function Jabatan() {
                   <td>{item.jabatan}</td>
                   <td>
                     <Link
-                      to={"/edit"}
-                      name={item.name}
-                      id={item.id}
-                      idCard={item.idcard}
-                      jabatan={item.jabatan}
+                      to={`/edit-jabatan/${item.id}`}
                       className="btn btn-primary"
                     >
                       Edit
                     </Link>
                   </td>
                   <td>
-                    <button
+                    <a
+                      href="/jabatan"
                       type="button"
                       class="btn btn-danger"
                       onClick={() => {
-                        // setId(item.id);
                         hendleDelete(item.id);
                       }}
                     >
                       Hapus
-                    </button>
+                    </a>
                   </td>
                 </tr>
               ))}
@@ -170,5 +154,3 @@ function Jabatan() {
 }
 
 export default Jabatan;
-
-

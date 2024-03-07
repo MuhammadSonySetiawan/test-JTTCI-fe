@@ -12,7 +12,9 @@ import Home from './pages/Home';
 import Jabatan from './pages/Jabatan';
 import Karyawan from './pages/Karyawan';
 import Kontrak from './pages/Kontrak';
-import Edit from './pages/Edit/Edit';
+import EditJabatan from './pages/Edit/EditJabatan';
+import EditKaryawan from './pages/Edit/EditKaryawan';
+import EditKontrak from './pages/Edit/EditKontrak';
 
 const router = createBrowserRouter([
   {
@@ -32,8 +34,16 @@ const router = createBrowserRouter([
     element: <Kontrak />,
   },
   {
-    path: "/edit",
-    element: <Edit />,
+    path: "/edit-jabatan/:id",
+    element: <EditJabatan />,
+  },
+  {
+    path: "/edit-karyawan/:id",
+    element: <EditKaryawan/>,
+  },
+  {
+    path: "/edit-kontrak/:id",
+    element: <EditKontrak />,
   },
 ]);
 

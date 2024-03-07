@@ -2,56 +2,53 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import "../App.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Karyawan() {
-  const navigate = useNavigate();
-  const [jabatans, setJabatans] = useState([]);
-  const [id, setId] = useState();
+  const [data, setData] = useState([]);
   const [name, setName] = useState(null);
   const [idCard, setIdCard] = useState(null);
   const [pekerjaan, setPekerjaan] = useState(null);
-  const [idUpdate, setIdUpdate] = useState();
 
-    useEffect(() => {
-      fetchData();
-    }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    const fetchData = () => {
-      axios
-        .get(`http://localhost:8000/karyawan`)
-        .then((res) => {
-          setJabatans(res.data.payload.datas);
-          console.log(res.data.payload.datas);
-        })
-        .catch((err) => console.log(err));
-    };
-// console.log(id)
-    // Delete
-    const hendleDelete = (e) => {
-      axios
-        .delete(`http://localhost:8000/karyawan/${e}`)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => console.log(err))
-    };
+  // Get Data
+  const fetchData = () => {
+    axios
+      .get(`http://localhost:8000/karyawan`)
+      .then((res) => {
+        setData(res.data.payload.datas);
+      })
+      .catch((err) => console.log(err));
+  };
 
-    // Post
-    const handleSubmitPost = (e) => {
-      axios
-        .post(`http://localhost:8000/karyawan`, {
-          idcard: idCard,
-          name: name,
-          pekerjaan: pekerjaan,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error("Ada kesalahan: ", error);
-        });
-    };
+  // Delete
+  const hendleDelete = (e) => {
+    axios
+      .delete(`http://localhost:8000/karyawan/${e}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // Post
+  const handleSubmitPost = (e) => {
+    axios
+      .post(`http://localhost:8000/karyawan`, {
+        idcard: idCard,
+        name: name,
+        pekerjaan: pekerjaan,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -60,7 +57,8 @@ function Karyawan() {
         Halaman Karyawan
       </h1>
       <div className="container">
-        {/* input jabatan start */}
+
+        {/* input Karyawan start */}
         <form className="input-post d-flex flex-column align-content-center justify-content-center w-100 mb-5">
           <div class="mb-3">
             <label for="exampleInputName1" class="form-label">
@@ -106,7 +104,8 @@ function Karyawan() {
             Submit
           </button>
         </form>
-        {/* input  jabatan end */}
+        {/* input  Karyawan end */}
+
         <form action="">
           <table class="table mt-3">
             <thead>
@@ -120,7 +119,7 @@ function Karyawan() {
               </tr>
             </thead>
             <tbody>
-              {jabatans.map((item, key) => (
+              {data.map((item, key) => (
                 <tr key={key}>
                   <th scope="row">{key + 1}</th>
                   <td>{item.name}</td>
@@ -128,18 +127,15 @@ function Karyawan() {
                   <td>{item.pekerjaan}</td>
                   <td>
                     <Link
-                      to={"/edit"}
-                      name={item.name}
-                      id={item.id}
-                      idCard={item.idcard}
-                      jabatan={item.jabatan}
+                      to={`/edit-karyawan/${item.id}`}
                       className="btn btn-primary"
                     >
                       Edit
                     </Link>
                   </td>
                   <td>
-                    <button
+                    <a
+                      href="/karyawan"
                       type="button"
                       class="btn btn-danger"
                       onClick={() => {
@@ -147,7 +143,7 @@ function Karyawan() {
                       }}
                     >
                       Hapus
-                    </button>
+                    </a>
                   </td>
                 </tr>
               ))}

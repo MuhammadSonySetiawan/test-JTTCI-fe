@@ -14,7 +14,7 @@ function Edit() {
   const handleUpdate = (e) => {
 
     axios
-      .put(`http://localhost:8000/jabatan/${id}`, {
+      .put(`${process.env.REACT_APP_BASE_API}/jabatan/${id}`, {
         idcard: idCardUpdate,
         name: nameUpdate,
         jabatan: jabatanUpdate,

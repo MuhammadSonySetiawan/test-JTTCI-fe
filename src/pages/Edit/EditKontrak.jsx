@@ -13,7 +13,7 @@ function EditKontrak() {
   // Edit
   const handleUpdate = (e) => {
     axios
-      .put(`http://localhost:8000/kontrak/${id}`, {
+      .put(`${process.env.REACT_APP_BASE_API}/kontrak/${id}`, {
         idcard: idCardUpdate,
         name: nameUpdate,
         kontrak: kontrakUpdate,

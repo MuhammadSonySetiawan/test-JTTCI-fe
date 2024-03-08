@@ -16,7 +16,7 @@ function Jabatan() {
   // Get Data
   const fetchData = () => {
     axios
-      .get(`http://localhost:8000/jabatan`)
+      .get(`${process.env.REACT_APP_BASE_API}/jabatan`)
       .then((res) => {
         setData(res.data.payload.datas);
       })
@@ -26,7 +26,7 @@ function Jabatan() {
   // Delete
   const hendleDelete = (e) => {
     axios
-      .delete(`http://localhost:8000/jabatan/${e}`)
+      .delete(`${process.env.REACT_APP_BASE_API}/jabatan/${e}`)
       .then((res) => {
         console.log(res);
       })
@@ -36,7 +36,7 @@ function Jabatan() {
   // Post
   const handleSubmitPost = (e) => {
     axios
-      .post(`http://localhost:8000/jabatan`, {
+      .post(`${process.env.REACT_APP_BASE_API}/jabatan`, {
         idcard: idCard,
         name: name,
         jabatan: jabatan,

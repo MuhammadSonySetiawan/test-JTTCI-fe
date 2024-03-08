@@ -17,7 +17,7 @@ function Kontrak() {
   // Get Data
   const fetchData = () => {
     axios
-      .get(`http://localhost:8000/kontrak`)
+      .get(`${process.env.REACT_APP_BASE_API}/kontrak`)
       .then((res) => {
         setData(res.data.payload.datas);
         console.log(res.data.payload.datas);
@@ -28,7 +28,7 @@ function Kontrak() {
   // Delete
   const hendleDelete = (e) => {
     axios
-      .delete(`http://localhost:8000/kontrak/${e}`)
+      .delete(`${process.env.REACT_APP_BASE_API}/kontrak/${e}`)
       .then((res) => {
         console.log(res);
       })
@@ -38,7 +38,7 @@ function Kontrak() {
   // Post
   const handleSubmitPost = (e) => {
     axios
-      .post(`http://localhost:8000/kontrak`, {
+      .post(`${process.env.REACT_APP_BASE_API}/kontrak`, {
         idcard: idCard,
         name: name,
         kontrak: kontrak,

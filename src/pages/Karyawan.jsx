@@ -17,7 +17,7 @@ function Karyawan() {
   // Get Data
   const fetchData = () => {
     axios
-      .get(`http://localhost:8000/karyawan`)
+      .get(`${process.env.REACT_APP_BASE_API}/karyawan`)
       .then((res) => {
         setData(res.data.payload.datas);
       })
@@ -27,7 +27,7 @@ function Karyawan() {
   // Delete
   const hendleDelete = (e) => {
     axios
-      .delete(`http://localhost:8000/karyawan/${e}`)
+      .delete(`${process.env.REACT_APP_BASE_API}/karyawan/${e}`)
       .then((res) => {
         console.log(res);
       })
@@ -37,7 +37,7 @@ function Karyawan() {
   // Post
   const handleSubmitPost = (e) => {
     axios
-      .post(`http://localhost:8000/karyawan`, {
+      .post(`${process.env.REACT_APP_BASE_API}/karyawan`, {
         idcard: idCard,
         name: name,
         pekerjaan: pekerjaan,
